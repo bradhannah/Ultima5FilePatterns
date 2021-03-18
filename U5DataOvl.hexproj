@@ -1,0 +1,1 @@
+{"filePath":"C:\\Games\\Ultima_5_late\\britain\\DATA.OVL","patches":[],"pattern":"#pragma eval_depth 5\n#pragma endian little\ns8 type @ 0x1234;\ns8 derp @ 0x1232;\n"}
