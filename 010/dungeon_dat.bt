@@ -12,8 +12,12 @@
 //------------------------------------------------
 BigEndian();
 //LittleEndian();
-
+local int nIndex = 0;
+local uint32 color = 0x00000000;
 typedef struct Dungeon {
+    
+    SetBackColor(color);
+    color = color + 0x00004000;
     struct DungeonFloor {
         struct DungeonRow {
             struct Tile 
@@ -40,6 +44,7 @@ typedef struct Dungeon {
                         enum <ubyte> FOUNTAIN_TYPE { CURE_POISON=0, HEAL=1, POISON_FOUNTAIN=2, BAD_TASTE_DAMAGE=3 } fountaintype : 4 ;
                         break;
                     case TRAP: 
+                        //ubyte trap_stuff_data :4;
                         enum <ubyte> TRAP_TYPE { LOWER_TRAP_VISIBLE=0, BOMB_TRAP=1, INVISIBLE_TRAP=2, UPPER_TRAP_VISIBLE=8 } traptype : 4;
                         break;
                     case ENERGY_FIELD: 
