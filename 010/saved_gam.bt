@@ -1,0 +1,47 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: saved_gam.bt
+//   Authors: Brad Hannah
+//   Version: 
+//   Purpose: to describe Ultima V save game format
+//  Category: gaming
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+enum <ubyte> Gender { Male = 0x0B, Female = 0x0C };
+enum <byte> Class { Avatar = 'A', Fighter = 'F', Bard = 'B', Wizard = 'M' };
+enum <byte> Status { Good = 'G', Poisoned = 'P', Charmed = 'C', Asleep = 'S', Dead = 'D' };
+enum <byte> PartyStatus { InTheParty = 0x00, HasntJoinedYet = 0xFF, AtTheInn = 0x01 };
+
+typedef struct Player {
+    char name[9];
+    Gender gender;
+    Class class;
+    Status status;
+    ubyte strength;
+    ubyte dexterity;
+    ubyte intelligence;
+    ubyte current_mp;
+    uint16 current_hp;
+    uint16 max_hp;
+    uint16 exp;
+    ubyte level;
+    ubyte months_at_inn;
+    ubyte unknown;
+    ubyte helmet;
+    ubyte armor;
+    ubyte weapon;
+    ubyte shield;
+    ubyte ring;
+    ubyte amulet;
+    PartyStatus party_status;
+};
+
+uint16 padding;
+Player players[16] <bgcolor=0x000006000,fgcolor=cWhite>;
+
+FSeek(0x2E2);
+ubyte karma <bgcolor=cRed,fgcolor=cBlack>;
