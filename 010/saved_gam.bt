@@ -21,7 +21,19 @@ enum <ubyte> Status { Good = 'G', Poisoned = 'P', Charmed = 'C', Asleep = 'S', D
 enum <ubyte> PartyStatus { InTheParty = 0x00, HasntJoinedYet = 0xFF, AtTheInn = 0x01 };
 enum <ubyte> Location { };
 enum <ubyte> Boolean { False = 0, True = 1 };
+enum <ubyte> BritOrUnderworld { Britannia = 0, Underworld = 0xFF };
+enum <ubyte> MoonstoneStatus { Buried = 0, InInventory = 0xFF };
 
+
+struct XyPosition {
+    ubyte x;
+    ubyte y;
+};
+
+
+uint16 padding;
+
+// Players
 typedef struct Player {
     char name[9];
     Gender gender;
@@ -45,7 +57,9 @@ typedef struct Player {
     ubyte amulet;
     PartyStatus party_status; 
 };
+Player players[16] <bgcolor=0x00006000,fgcolor=cWhite, comment="All available player characters">;
 
+// Provisions
 struct ProvisionQuantities {
     uint16 quantity_food;
     uint16 quantity_gold;
@@ -56,37 +70,51 @@ struct ProvisionQuantities {
     Boolean has_grapple;
 };
 
-struct XyPosition {
-    ubyte x;
-    ubyte y;
-};
-
-
-uint16 padding;
-Player players[16] <bgcolor=0x00006000,fgcolor=cWhite>;
-
 FSeek(0x202);
 ProvisionQuantities provision_quantities <bgcolor=cRed,fgcolor=cWhite>;
 
-FSeek(0x28A);
-enum <ubyte> MoonstoneStatus { Buried = 0, InInventory = 0xFF };
+// Moonstones
 struct Moonstones {
     ubyte x[8];
     ubyte y[8];
     MoonstoneStatus status[8];
+    BritOrUnderworld z[8];
 };
-Moonstones moonstones <bgcolor=cRed,fgcolor=cBlack>;
+
+FSeek(0x28A);
+Moonstones moonstones <bgcolor=cRed, fgcolor=cBlack, comment="Location and status of all moonstones">;
+
+FSeek(0x2B5);
+ubyte number_of_party_members <bgcolor=cRed, fgcolor=cBlack>;
+
+FSeek(0x2D5);
+ubyte active_character <bgcolor=cRed, fgcolor=cBlack>;
+
+// Date and time
+
+FSeek(0x2CE);
+uint16 current_year <comment="Current Year">;
+
+FSeek(0x2D7);
+struct WorldDateTime {
+    ubyte month;
+    ubyte day;
+    ubyte hour;
+    ubyte minute;
+};
+WorldDateTime current_date <comment="Current Date and Time", bgcolor=cRed, fgcolor=cBlack>;
+
 
 FSeek(0x2E2);
 ubyte karma <bgcolor=cRed,fgcolor=cBlack>;
 
 FSeek(0x2ED);
-Location current_party_location;
-ubyte party_z;
+Location current_party_location <bgcolor=cRed, fgcolor=cBlack>;
+ubyte party_z <bgcolor=cRed, fgcolor=cBlack>;
 
 FSeek(0x2F0);
-XyPosition party_xy <bgcolor=cRed,fgcolor=cWhite>;
+XyPosition party_xy <bgcolor=cRed, fgcolor=cWhite, comment="Current position of the party">;
 
 FSeek(0x301);
-ubyte turns_til_torch_extinguish;
+ubyte turns_til_torch_extinguish <comment="Total number of turns until torch is extinguished">;
 
