@@ -118,3 +118,5 @@ XyPosition party_xy <bgcolor=cRed, fgcolor=cWhite, comment="Current position of 
 FSeek(0x301);
 ubyte turns_til_torch_extinguish <comment="Total number of turns until torch is extinguished">;
 
+Fseek(0x5B4);
+Boolean 
