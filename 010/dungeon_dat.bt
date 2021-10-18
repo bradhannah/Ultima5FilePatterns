@@ -13,13 +13,26 @@
 BigEndian();
 //LittleEndian();
 local int nIndex = 0;
+<<<<<<< Updated upstream
 local uint32 color = 0x00000000;
+=======
+>>>>>>> Stashed changes
 typedef struct Dungeon {
     
     SetBackColor(color);
     color = color + 0x00004000;
     struct DungeonFloor {
         struct DungeonRow {
+            if (nIndex % 2 == 0)
+            {            
+                SetBackColor(cBlack);
+            }
+            else
+            {
+                SetBackColor(cGreen);
+            }
+            nIndex++;            
+            
             struct Tile 
             {
                 enum <ubyte> TILE_TYPE { NOTHING=0, LADDER_UP=1, LADDER_DOWN=2, LADDER_UP_DOWN=3, CHEST=4, 
